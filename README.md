@@ -1,6 +1,6 @@
 # EventDesk campus events API
 
-EventDesk must serve campus events through Kubernetes. Repair its release without changing application code. Prerequisites: running Docker, Bash, Git, curl, Python 3, internet access, 2 Docker CPUs, 4 GiB Docker RAM and 8 GiB free disk; GitHub account for your fork only. Complete [self-service preparation](SETUP.md), including fork/clone, bootstrap and `source .lab/env.sh`, before repairs. Work only in this isolated lab. Source `.lab/env.sh` in each shell.
+EventDesk must serve campus events through Kubernetes. Repair its release without changing application code. Prerequisites: macOS, Linux or WSL2; running Docker Desktop/Engine 28+ (API 1.48+), Bash, Git, curl, Python 3 and internet access. Allocate Docker at least 2 CPUs and 4 GiB RAM; have 8 GiB free disk. A GitHub account is needed for your fork only. Complete [self-service preparation](SETUP.md), including fork/clone, bootstrap and `source .lab/env.sh`, before repairs. Work only in this isolated lab. Source `.lab/env.sh` in each shell.
 
 Submit one PDF file under 2,000,000 bytes, with exactly three screenshots total: one labelled Task 1, one Task 2, one Task 3. Include your name/learner ID, actual fork URL and starter commit, concise diagnosis/fix/results, and brief YAML excerpts or captions as needed. No extra uploads. Keep token values and Secret data out of screenshots. Never use real credentials. Use only the required evidence below; full command transcripts are not needed.
 
