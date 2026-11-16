@@ -2,7 +2,7 @@
 
 Complete preparation before starting repair work. Downloads, Docker startup and cluster creation are separate from the repair exercise. No staff action required.
 
-Prerequisites: macOS or Linux (including WSL2), Bash, Git, curl, Python 3, internet access to GitHub, dl.k8s.io, Docker Hub; Docker Desktop/Engine installed and running, at least 2 CPUs and 4 GiB RAM allocated to Docker, 8 GiB free disk. Allow image downloads to finish. No cloud account, paid service or registry login needed. GitHub account needed only for your fork. The script downloads checksum-verified kind v0.27.0 and compatible kubectl v1.32.2 locally; no global install required. Docker daemon CPU determines image platform, including ARM Macs.
+Prerequisites: macOS or Linux (including WSL2), Bash, Git, curl, Python 3, internet access to GitHub, dl.k8s.io, Docker Hub; Docker Desktop/Engine 28+ installed and running (API 1.48+, needed for architecture-specific image export), at least 2 CPUs and 4 GiB RAM allocated to Docker, 8 GiB free disk. Allow image downloads to finish. No cloud account, paid service or registry login needed. GitHub account needed only for your fork. The script downloads checksum-verified kind v0.27.0 and compatible kubectl v1.32.2 locally; no global install required. Docker daemon CPU determines image platform, including ARM Macs.
 
 1. On GitHub, fork https://github.com/kalviumcommunity/eventdesk-k8s-release-repair into your account. Replace YOUR_GITHUB_USER below with your actual username (do not type angle brackets):
    ```bash

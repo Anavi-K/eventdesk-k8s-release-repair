@@ -4,6 +4,10 @@ cd "$(dirname "$0")/.."
 ROOT="$PWD"
 for c in docker curl python3 git; do command -v "$c" >/dev/null || { echo "Install prerequisite: $c"; exit 1; }; done
 docker info >/dev/null || { echo 'Start Docker Desktop/Engine first.'; exit 1; }
+python3 - "$(docker version --format '{{.Server.APIVersion}}')" <<'PY'
+import sys
+assert tuple(map(int,sys.argv[1].split('.'))) >= (1,48), 'Docker Engine 28+ (API 1.48+) required'
+PY
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 case "$OS" in darwin|linux) ;; *) echo 'Use macOS or Linux (WSL2 Linux supported).'; exit 1;; esac
 case "$(uname -m)" in arm64|aarch64) ARCH=arm64;; x86_64|amd64) ARCH=amd64;; *) echo 'Unsupported CPU'; exit 1;; esac
@@ -74,7 +78,11 @@ kind create cluster --name "$NAME" --image kindest/node:v1.32.2 --config .lab/ki
 retry docker pull --platform "$PLATFORM" python:3.12.9-alpine3.21
 retry docker pull --platform "$PLATFORM" traefik:v3.3.4
 docker build --platform "$PLATFORM" -t eventdesk:lab .
-kind load docker-image --name "$NAME" eventdesk:lab traefik:v3.3.4
+# Export only daemon architecture: avoid incomplete multi-platform indexes in
+# Docker Desktop's containerd image store (kind imports all archive platforms).
+docker image save --platform "$PLATFORM" -o .lab/images.tar eventdesk:lab traefik:v3.3.4
+kind load image-archive --name "$NAME" .lab/images.tar
+rm .lab/images.tar
 kubectl apply -f scripts/controller.yaml
 kubectl -n eventdesk-edge rollout status deployment/traefik --timeout=180s
 kubectl create namespace eventdesk
