@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventdesk
+  namespace: eventdesk
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: eventdesk}
+  template:
+    metadata:
+      labels: {app: eventdesk}
+    spec:
+      containers:
+        - name: api
+          image: eventdesk:lab
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: eventdesk-config
+          # Task 3: add env here; keep envFrom above.
+          # env:
+          #   - name: DEMO_TOKEN
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: <secret name>
+          #         key: <secret key>
+          readinessProbe:
+            httpGet: {path: /readyz, port: 8000}
+            periodSeconds: 2
+          livenessProbe:
+            httpGet: {path: /live, port: 8000}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests: {cpu: 25m, memory: 32Mi}
+            limits: {cpu: 250m, memory: 96Mi}
