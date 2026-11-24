@@ -16,7 +16,7 @@ bash scripts/service-request.sh
 curl -i --max-time 10 -H 'Host: eventdesk.local' "http://127.0.0.1:$LAB_PORT/api/events"
 ```
 Capture one labelled screenshot showing failed Service request and successful Service DNS + Ingress requests; explain targetPort versus Service port and correct Ingress route. No ingress fault is planted.
-
+ 
 ## Task 3 — Complete campus release and recover capacity
 
 Edit only `data.APP_ENV` and `data.BANNER` in supplied `k8s/configmap.yaml` to `campus` and `Campus Events`. Preserve Deployment `envFrom.configMapRef`; add `env` entry `DEMO_TOKEN` using `valueFrom.secretKeyRef` to Secret `eventdesk-secret`, key `DEMO_TOKEN` (commented skeleton supplied). Create that Secret using fake value `practice-only` via documented SETUP command; do not hardcode token in Deployment, ConfigMap or image. Apply changed files and restart rollout if needed for updated environment.
