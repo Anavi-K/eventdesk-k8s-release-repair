@@ -35,3 +35,4 @@ Use commented `env` skeleton in Deployment, name `eventdesk-secret`, key `DEMO_T
 After updating config and references, persist `spec.replicas: 3`, apply changed YAML and wait for rollout. Record Pod names/UIDs with `kubectl -n eventdesk get pods -l app=eventdesk -o custom-columns=NAME:.metadata.name,UID:.metadata.uid,READY:.status.containerStatuses[0].ready`. Delete exactly one recorded Pod with `kubectl -n eventdesk delete pod POD_NAME`, wait for rollout and repeat UID listing. Compare old and new UID, verify exactly three Ready API Pods and Deployment desired/ready count. Then repeat both HTTP checks from README. This checks recovery, not uninterrupted access during deletion.
 
 Cleanup only your lab: source `.lab/env.sh`, then `kind delete cluster --name "$LAB_CLUSTER"`. No background port-forward is used.
+ 
